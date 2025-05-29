@@ -25,7 +25,7 @@ def get_date(date_str: str) -> str:
         date_separate = date_str.split("T")[0]
         year, month, day = date_separate.split("-")
         return f"{day}.{month}.{year}"
-    except Exception:
+    except ValueError:
         return "Неверный формат даты"
 
 
