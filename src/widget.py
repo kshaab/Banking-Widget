@@ -1,6 +1,5 @@
 from masks import get_mask_account, get_mask_card_number
-
-user_input_info = input()
+import datetime
 
 
 def mask_account_card(info: str) -> str:
@@ -15,5 +14,9 @@ def mask_account_card(info: str) -> str:
 
 
 if __name__ == "__main__":
+    user_input_info = input()
     print(mask_account_card(user_input_info))
+
+
+def get_date():
 

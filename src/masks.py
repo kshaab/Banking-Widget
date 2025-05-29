@@ -1,6 +1,3 @@
-user_input_card_number = input()
-
-
 def get_mask_card_number(card_number: str) -> str:
     """Функция маскирует номер карты"""
     card_number_str = str(card_number).replace(" ", "")
@@ -12,12 +9,6 @@ def get_mask_card_number(card_number: str) -> str:
 
     masked_card_number = first_six_digits[:4] + " " + first_six_digits[4:6] + "** ****" + " " + last_four_digits
     return masked_card_number
-
-
-print(get_mask_card_number(user_input_card_number))
-
-
-user_input_account = input()
 
 
 def get_mask_account(account: str) -> str:
@@ -32,4 +23,9 @@ def get_mask_account(account: str) -> str:
     return masked_account
 
 
-print(get_mask_account(user_input_account))
+if __name__ == "__main__":
+    user_input_card_number = input("Введите номер карты: ")
+    print(get_mask_card_number(user_input_card_number))
+
+    user_input_account = input("Введите номер счета: ")
+    print(get_mask_account(user_input_account))
