@@ -1,1 +1,1 @@
-# widget-project
+# Banking Widget
