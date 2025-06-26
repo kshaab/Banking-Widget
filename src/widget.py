@@ -11,6 +11,8 @@ def mask_account_card(info: str) -> str:
         return f"Счет {masked_account}"
     else:
         separate = info.split()
+        if not separate:
+            return "Неверный номер счета или карты"
         name = " ".join(separate[:-1])
         card_number = separate[-1]
         masked_card = get_mask_card_number(card_number)
@@ -21,9 +23,14 @@ def mask_account_card(info: str) -> str:
 
 def get_date(date_str: str) -> str:
     """Преобразует формат даты"""
+    if "T" not in date_str:
+        return "Неверный формат даты"
     try:
         date_separate = date_str.split("T")[0]
-        year, month, day = date_separate.split("-")
+        parts = date_separate.split("-")
+        if len(parts) != 3:
+            return "Неверный формат даты"
+        year, month, day = parts
         return f"{day}.{month}.{year}"
     except ValueError:
         return "Неверный формат даты"
