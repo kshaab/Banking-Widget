@@ -26,7 +26,8 @@ python src/<имя файла>.py
 
 ## Разработка 
 
-### Основные функции
+## Основные функции
+### Masks
 - ### `get_mask_card_number(card_number: str) -> str` 
 Маскирует номер карты.
 get_mask_card_number("7000792289606361")
@@ -35,6 +36,7 @@ get_mask_card_number("7000792289606361")
 Маскирует номер счета.
 get_mask_account("73654108430135874305")
 ###  '**4305'
+### Widget
 - ### `mask_account_card(info: str) -> str` 
 Маскирует номер карты, сохраняя ее название. 
 mask_account_card("Visa Platinum 7000792289606361")
@@ -43,12 +45,23 @@ mask_account_card("Visa Platinum 7000792289606361")
 Преобразует формат даты.
 get_date("2024-03-11T02:26:18.671407")
 ### '11.03.2024'
+### Processing
 - ### `filter_by_state(data: list[dict], state: str = "EXECUTED") -> list[dict]` 
 Фильтрует список словарей по ключу.
 filter_by_state(data, state="CANCELED")
 - ### `sort_by_date(info: list[dict], reverse: bool = True) -> list[dict]` 
 Сортирует список словарей по дате в порядке возрастания/убывания. 
 sort_by_date(data, reverse=True)
+### Generators
+- ### `filter_by_currency(transactions: list, currency_code: str)`
+Возвращает итератор, который поочередно выдает транзакции, где валюта операции соответствует заданной.
+filter_by_currency(transactions, "USD")
+- ### `transaction_descriptions(transactions: list)`
+Возвращает описание каждой операции по очереди.
+transaction_descriptions(transactions) 
+- ### `card_number_generator(start: int, stop: int)`
+Выдает номера карт в заданном формате и диапазоне.
+for card_number in card_number_generator(1, 5)
 
 ## Зависимости
 Управление зависимостями осуществляется через Poetry (pyproject.toml).
@@ -58,8 +71,8 @@ sort_by_date(data, reverse=True)
 В проекте используется фреймворк pytest для запуска тестов.
 
 Запуск тестов:
-```
-pytest
+```bash
+pytest tests/ -v
 ```
 
 ## Автор

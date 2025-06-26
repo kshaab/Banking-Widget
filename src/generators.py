@@ -15,7 +15,7 @@ def transaction_descriptions(transactions: list):
 
 
 def card_number_generator(start: int, stop: int):
-    """Выдает номера карт в заданном формате в диапазоне"""
+    """Выдает номера карт в заданном формате и диапазоне"""
     for number in range(start, stop + 1):
         card_str = str(number)
         zeros = 16 - len(card_str)
