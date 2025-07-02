@@ -9,8 +9,12 @@ def filter_by_state(data: list[dict], state: str = "EXECUTED") -> list[dict]:
 
 def sort_by_date(info: list[dict], reverse: bool = True) -> list[dict]:
     """Сортирует список словарей по дате"""
-    sorted_info = sorted(info, key=lambda item: item.get("date", ""), reverse=reverse)
-    return sorted_info
+
+    def is_valid_iso(s: str) -> bool:
+        return isinstance(s, str) and "T" in s and len(s) >= 10
+
+    valid = [item for item in info if is_valid_iso(item.get("date"))]
+    return sorted(valid, key=lambda item: item["date"], reverse=reverse)
 
 
 if __name__ == "__main__":
