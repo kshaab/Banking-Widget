@@ -1,2 +1,0 @@
-check_func ok, result: 13.
-check_func error: ZeroDivisionError. Inputs: (5, 0), {}

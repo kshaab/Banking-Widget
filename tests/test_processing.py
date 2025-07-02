@@ -56,7 +56,7 @@ def test_sort_with_same_dates(data_list: list[dict]) -> None:
     assert i_3 == i_1 + 1
 
 
-def test_invalid_dates_excluded(data_list):
+def test_invalid_dates_excluded(data_list: list[dict]) -> None:
     result = sort_by_date(data_list)
     ids = [item["id"] for item in result]
     assert 4 not in ids and 5 not in ids

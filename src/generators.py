@@ -1,4 +1,9 @@
-def filter_by_currency(transactions: list, currency_code: str):
+from typing import Any, Dict, Generator, List
+
+
+def filter_by_currency(
+    transactions: List[Dict[str, Any]], currency_code: str
+) -> Generator[Dict[str, Any], None, None]:
     """Возвращает итератор, который поочередно выдает транзакции,
     где валюта операции соответствует заданной"""
     filtered_transaction = (
@@ -9,7 +14,7 @@ def filter_by_currency(transactions: list, currency_code: str):
     return filtered_transaction
 
 
-def transaction_descriptions(transactions: list):
+def transaction_descriptions(transactions: List[Dict[str, Any]]) -> Generator[str, None, None]:
     """Возвращает описание каждой операции по очереди"""
     for transaction in transactions:
         description = transaction.get("description")
@@ -17,7 +22,7 @@ def transaction_descriptions(transactions: list):
             yield description
 
 
-def card_number_generator(start: int, stop: int):
+def card_number_generator(start: int, stop: int) -> Generator[str, None, None]:
     """Выдает номера карт в заданном формате и диапазоне"""
     for number in range(start, stop + 1):
         card_str = str(number)
