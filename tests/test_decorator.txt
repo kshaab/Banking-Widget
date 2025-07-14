@@ -1,0 +1,1 @@
+check_func error: ZeroDivisionError. Inputs: (5, 0), {}

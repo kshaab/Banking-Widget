@@ -1,3 +1,5 @@
+from typing import Dict, List, Tuple
+
 import pytest
 
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions
@@ -33,7 +35,7 @@ def currency() -> list:
         ("RUB", []),
     ],
 )
-def test_filter_by_currency_parametrized(currency, currency_code, expected):
+def test_filter_by_currency_parametrized(currency: List[Dict], currency_code: str, expected: List[Dict]) -> None:
     result = list(filter_by_currency(currency, currency_code))
     assert result == expected
 
@@ -75,7 +77,7 @@ def card_number_range() -> tuple[int, int]:
     return 1, 4
 
 
-def test_card_number_generator(card_number_range: int) -> None:
+def test_card_number_generator(card_number_range: Tuple[int, int]) -> None:
     start, stop = card_number_range
     generate = card_number_generator(start, stop)
     expected = [
