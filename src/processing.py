@@ -1,3 +1,6 @@
+from typing import Optional
+
+
 def filter_by_state(data: list[dict], state: str = "EXECUTED") -> list[dict]:
     """Фильтрует список словарей по ключу"""
     result = []
@@ -10,7 +13,7 @@ def filter_by_state(data: list[dict], state: str = "EXECUTED") -> list[dict]:
 def sort_by_date(info: list[dict], reverse: bool = True) -> list[dict]:
     """Сортирует список словарей по дате"""
 
-    def is_valid_iso(s: str) -> bool:
+    def is_valid_iso(s: Optional[str]) -> bool:
         return isinstance(s, str) and "T" in s and len(s) >= 10
 
     valid = [item for item in info if is_valid_iso(item.get("date"))]
