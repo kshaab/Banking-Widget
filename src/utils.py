@@ -3,6 +3,7 @@ import os
 from typing import List, Dict, Any
 
 def get_transactions(file: str) -> List[Dict[str, Any]]:
+    """Возвращает список словарей с данными о транзакции из JSON-файла"""
     if not os.path.exists(file):
         return []
     with open(file, 'r', encoding='utf-8') as f:
