@@ -37,6 +37,6 @@ if __name__ == "__main__":
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     file_path = os.path.join(base_dir, "data", "operations.json")
     transactions = get_transactions(file_path)
-    for i, transaction in enumerate(transactions, start=1):
+    for i, transaction in enumerate(transactions[:5], start=1):
         rub_amount = get_rub_amount(transaction)
         print(f"{i}) Сумма в рублях: {round(rub_amount, 2)}")
