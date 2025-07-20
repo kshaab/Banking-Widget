@@ -1,4 +1,5 @@
 from typing import Any
+from unittest.mock import mock_open, patch
 
 import pytest
 from _pytest.capture import CaptureFixture
@@ -41,7 +42,11 @@ def test_console_output_success(capsys: CaptureFixture) -> None:
     assert result == 10
 
 
-def test_log_write_to_file_success() -> Any:
+mock_data = "check_func error: ZeroDivisionError. Inputs: (5, 0), {}\n"
+
+
+@patch("src.decorators.open", new_callable=mock_open)
+def test_log_write_to_file_success(mock_file: Any) -> None:
     file = "test_decorator.txt"
 
     @log(filename=file)
@@ -50,12 +55,14 @@ def test_log_write_to_file_success() -> Any:
 
     result = check_func(5, 8)
     assert result == 13
-    with open("test_decorator.txt", "r", encoding="utf-8") as f:
-        content = f.read()
-    assert "check_func ok, result: 13." in content
+
+    mock_file.assert_called_with(file, "a", encoding="utf-8")
+    handle = mock_file()
+    handle.write.assert_called_with("check_func ok, result: 13.\n")
 
 
-def test_log_write_to_file_error() -> Any:
+@patch("src.decorators.open", new_callable=mock_open)
+def test_log_write_to_file_error(mock_file: Any) -> None:
     file = "test_decorator.txt"
 
     @log(filename=file)
@@ -64,6 +71,7 @@ def test_log_write_to_file_error() -> Any:
 
     with pytest.raises(ZeroDivisionError):
         check_func(5, 0)
-    with open("test_decorator.txt", "r", encoding="utf-8") as f:
-        content = f.read()
-    assert "check_func error: ZeroDivisionError. Inputs: (5, 0)" in content
+
+    mock_file.assert_called_with(file, "a", encoding="utf-8")
+    handle = mock_file()
+    handle.write.assert_called_with("check_func error: ZeroDivisionError. Inputs: (5, 0), {}\n")
