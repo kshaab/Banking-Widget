@@ -6,7 +6,7 @@ def process_bank_search(data:list[dict], search:str)->list[dict]:
     pattern = re.compile(rf'\b{re.escape(search.lower())}\b', re.IGNORECASE)
     matched_transactions = []
     for transaction in data:
-        description = transaction.get("description", "").lower()
+        description = str(transaction.get("description", "")).lower()
         if pattern.search(description):
             matched_transactions.append(transaction)
     return matched_transactions
