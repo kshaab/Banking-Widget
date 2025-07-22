@@ -93,7 +93,16 @@ for card_number in card_number_generator(1, 5)
 Считывает финансовые операции из CSV-файла и возвращает список словарей. 
 - ### `read_transactions_from_excel(excel_dir)`
 Считывает финансовые операции из EXCEL-файла и возвращает список словарей
-
+### Actions_with_bank_operations.py
+- ### `process_bank_search(bank_operations, search)`
+Возвращает список словарей с заданным словом в описании
+- ### `process_bank_operations(bank_operations, unique_categories)`
+Возвращает словарь со списком категорий и их количеством
+### Main 
+- ### ` print_transactions(result)`
+Выводит отформатированную информацию о транзакциях
+- ### `main()`
+Объединяет работу модулей в единую программу вывода транзакций
 
 
 ## Зависимости

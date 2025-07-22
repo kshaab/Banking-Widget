@@ -1,19 +1,19 @@
-from src.utils import get_transactions
-from src.read_transactions import read_transactions_from_csv, read_transactions_from_excel
-from src.widget import mask_account_card, get_date
-from src.processing import filter_by_state, sort_by_date
-from src.generators import filter_by_currency
 from src.actions_with_bank_operations import process_bank_search
+from src.generators import filter_by_currency
+from src.processing import filter_by_state, sort_by_date
+from src.read_transactions import read_transactions_from_csv, read_transactions_from_excel
+from src.utils import get_transactions
+from src.widget import get_date, mask_account_card
 
 
 def print_transactions(transactions: list[dict]):
+    """Выводит отформатированную информацию о транзакциях"""
     for t in transactions:
         date_str = get_date(t.get("date"))
         description = t.get("description", "Без описания")
 
         from_info = t.get("from")
         to_info = t.get("to")
-
 
         operation = t.get("operationAmount", {})
         amount = None
@@ -43,12 +43,16 @@ def print_transactions(transactions: list[dict]):
         else:
             print("Сумма: ---\n")
 
+
 def main():
-    print("""Привет! Добро пожаловать в программу работы с банковскими транзакциями.
+    """Объединяет работу модулей в единую программу вывода транзакций"""
+    print(
+        """Привет! Добро пожаловать в программу работы с банковскими транзакциями.
     \nВыберите необходимый пункт меню:
   \n1. Получить информацию о транзакциях из JSON-файла
   \n2. Получить информацию о транзакциях из CSV-файла
-  \n3. Получить информацию о транзакциях из XLSX-файла""")
+  \n3. Получить информацию о транзакциях из XLSX-файла"""
+    )
 
     while True:
         choice = input().strip()
@@ -70,8 +74,11 @@ def main():
         else:
             print("Введите число от 1 до 3")
 
-    print("""Введите статус, по которому необходимо выполнить фильтрацию. 
-    \nДоступные для фильтровки статусы: EXECUTED, CANCELED, PENDING""")
+    print(
+        "Введите статус, по которому необходимо выполнить фильтрацию.\n"
+        "Доступные для фильтрации статусы: EXECUTED, CANCELED, PENDING"
+    )
+
     statuses = {"EXECUTED", "CANCELED", "PENDING"}
     while True:
         status = input().strip().upper()
@@ -81,7 +88,6 @@ def main():
             break
         else:
             print(f"Статус операции '{status}' недоступен. Введите статус повторно:")
-
 
     print("Отсортировать операции по дате? Да/Нет")
     answer_1 = input().strip().lower()
@@ -93,7 +99,7 @@ def main():
     print("Выводить только рублевые транзакции? Да/Нет")
     answer_3 = input().strip().lower()
     if answer_3 == "да":
-       result = filter_by_currency(result, currency_code="RUB")
+        result = filter_by_currency(result, currency_code="RUB")
     elif answer_3 == "нет":
         pass
     print("Отфильтровать список транзакций по определенному слову в описании? Да/Нет")
@@ -113,12 +119,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-

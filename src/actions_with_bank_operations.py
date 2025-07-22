@@ -1,9 +1,12 @@
 import re
-from src.read_transactions import read_transactions_from_csv
 from collections import Counter
 
-def process_bank_search(data:list[dict], search:str)->list[dict]:
-    pattern = re.compile(rf'\b{re.escape(search.lower())}\b', re.IGNORECASE)
+from src.read_transactions import read_transactions_from_csv
+
+
+def process_bank_search(data: list[dict], search: str) -> list[dict]:
+    """Возвращает список словарей с заданным словом в описании"""
+    pattern = re.compile(rf"\b{re.escape(search.lower())}\b", re.IGNORECASE)
     matched_transactions = []
     for transaction in data:
         description = str(transaction.get("description", "")).lower()
@@ -11,7 +14,9 @@ def process_bank_search(data:list[dict], search:str)->list[dict]:
             matched_transactions.append(transaction)
     return matched_transactions
 
-def process_bank_operations(data:list[dict], categories:list)->dict:
+
+def process_bank_operations(data: list[dict], categories: list) -> dict:
+    """Возвращает словарь со списком категорий и их количеством"""
     separated_categories = []
     for transactions in data:
         sep_category = transactions.get("description")
@@ -20,7 +25,6 @@ def process_bank_operations(data:list[dict], categories:list)->dict:
 
     counted = Counter(separated_categories)
     return dict(counted)
-
 
 
 if __name__ == "__main__":
