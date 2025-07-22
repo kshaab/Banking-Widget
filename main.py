@@ -93,7 +93,7 @@ def main():
     print("Выводить только рублевые транзакции? Да/Нет")
     answer_3 = input().strip().lower()
     if answer_3 == "да":
-       result = filter_by_currency(transactions, currency_code="RUB")
+       result = filter_by_currency(result, currency_code="RUB")
     elif answer_3 == "нет":
         pass
     print("Отфильтровать список транзакций по определенному слову в описании? Да/Нет")
@@ -101,7 +101,7 @@ def main():
     if answer_4 == "да":
         print("Введите слово: ")
         word = input().lower()
-        result = process_bank_search(transactions, word)
+        result = process_bank_search(result, word)
     if not result:
         print("Программа: Не найдено ни одной транзакции, подходящей под ваши условия фильтрации.")
         return
