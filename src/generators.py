@@ -6,12 +6,16 @@ def filter_by_currency(
 ) -> Generator[Dict[str, Any], None, None]:
     """Возвращает итератор, который поочередно выдает транзакции,
     где валюта операции соответствует заданной"""
-    filtered_transaction = (
-        transaction
-        for transaction in transactions
-        if transaction.get("operationAmount", {}).get("currency", {}).get("code") == currency_code
-    )
-    return filtered_transaction
+    for transaction in transactions:
+        # Сначала пробуем вложенную структуру (JSON)
+        code = transaction.get("operationAmount", {}).get("currency", {}).get("code")
+
+        # Если не нашли — пробуем плоскую структуру (CSV)
+        if code is None:
+            code = transaction.get("currency_code")
+
+        if code == currency_code:
+            yield transaction
 
 
 def transaction_descriptions(transactions: List[Dict[str, Any]]) -> Generator[str, None, None]:

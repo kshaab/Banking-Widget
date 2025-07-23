@@ -3,6 +3,7 @@ from src.masks import get_mask_account, get_mask_card_number
 
 def mask_account_card(info: str) -> str:
     """Маскирует номер, сохраняя название карты/счета"""
+    info = str(info)
     if info.startswith("Счет"):
         account_number = info[5:]
         masked_account = get_mask_account(account_number)
