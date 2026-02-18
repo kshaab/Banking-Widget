@@ -47,7 +47,7 @@ src/
      ├─ utils/     
      ├─ external_api/    
      ├─ read_transactions/   
-     └─ actions_with_bank_operations.py
+     └─ actions_with_bank_operations/
  
 tests/
 
